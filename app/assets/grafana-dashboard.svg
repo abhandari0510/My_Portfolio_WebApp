@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <defs>
+    <linearGradient id="orange" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#ff7a1a" />
+      <stop offset="1" stop-color="#f7c600" />
+    </linearGradient>
+    <linearGradient id="panel" x1="0" x2="0" y1="0" y2="1">
+      <stop stop-color="#171a22" />
+      <stop offset="1" stop-color="#0f1117" />
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="800" fill="#0b0f17" />
+  <rect x="0" y="0" width="1280" height="64" fill="#11151f" />
+  <circle cx="36" cy="32" r="12" fill="url(#orange)" />
+  <text x="64" y="40" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="24" font-weight="700">Grafana Cloud</text>
+  <text x="1110" y="40" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="16">Production Overview</text>
+  <rect x="28" y="92" width="1224" height="88" rx="8" fill="url(#panel)" stroke="#293241" />
+  <text x="56" y="126" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="18">SLO status</text>
+  <text x="56" y="162" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="34" font-weight="700">99.93%</text>
+  <text x="280" y="126" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="18">API p95</text>
+  <text x="280" y="162" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="34" font-weight="700">182ms</text>
+  <text x="488" y="126" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="18">Error budget</text>
+  <text x="488" y="162" fill="#73bf69" font-family="Arial, sans-serif" font-size="34" font-weight="700">74%</text>
+  <text x="752" y="126" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="18">Alerts</text>
+  <text x="752" y="162" fill="#ffb357" font-family="Arial, sans-serif" font-size="34" font-weight="700">2 firing</text>
+  <text x="986" y="126" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="18">Traces</text>
+  <text x="986" y="162" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="34" font-weight="700">1.8M</text>
+  <rect x="28" y="208" width="590" height="252" rx="8" fill="url(#panel)" stroke="#293241" />
+  <text x="56" y="246" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Request rate and latency</text>
+  <polyline points="60,390 112,350 164,370 216,300 268,320 320,265 372,288 424,230 476,252 528,218 580,244" fill="none" stroke="#f46800" stroke-width="5" />
+  <polyline points="60,410 112,398 164,360 216,382 268,336 320,356 372,315 424,342 476,298 528,314 580,270" fill="none" stroke="#5794f2" stroke-width="4" />
+  <line x1="60" y1="420" x2="580" y2="420" stroke="#293241" />
+  <rect x="660" y="208" width="592" height="252" rx="8" fill="url(#panel)" stroke="#293241" />
+  <text x="688" y="246" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Service health</text>
+  <g font-family="Arial, sans-serif" font-size="18">
+    <text x="690" y="304" fill="#8ea0b8">frontend-faro</text><text x="1084" y="304" fill="#73bf69">healthy</text>
+    <text x="690" y="350" fill="#8ea0b8">payment-api</text><text x="1084" y="350" fill="#ffb357">warning</text>
+    <text x="690" y="396" fill="#8ea0b8">ibm-mq-bridge</text><text x="1084" y="396" fill="#73bf69">steady</text>
+  </g>
+  <rect x="28" y="488" width="386" height="260" rx="8" fill="url(#panel)" stroke="#293241" />
+  <text x="56" y="526" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Logs</text>
+  <g fill="#8ea0b8" font-family="monospace" font-size="15">
+    <text x="56" y="572">INFO alloy scrape complete</text>
+    <text x="56" y="610">WARN checkout p95 above target</text>
+    <text x="56" y="648">INFO loki stream indexed</text>
+    <text x="56" y="686">INFO tempo trace sampled</text>
+  </g>
+  <rect x="446" y="488" width="386" height="260" rx="8" fill="url(#panel)" stroke="#293241" />
+  <text x="474" y="526" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Infra saturation</text>
+  <g fill="#f46800">
+    <rect x="482" y="686" width="34" height="34" /><rect x="532" y="638" width="34" height="82" /><rect x="582" y="602" width="34" height="118" /><rect x="632" y="658" width="34" height="62" /><rect x="682" y="574" width="34" height="146" /><rect x="732" y="622" width="34" height="98" />
+  </g>
+  <rect x="864" y="488" width="388" height="260" rx="8" fill="url(#panel)" stroke="#293241" />
+  <text x="892" y="526" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Alert rules</text>
+  <circle cx="916" cy="584" r="7" fill="#ffb357" /><text x="938" y="591" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="18">API p95 latency</text>
+  <circle cx="916" cy="638" r="7" fill="#73bf69" /><text x="938" y="645" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="18">Error budget burn</text>
+  <circle cx="916" cy="692" r="7" fill="#73bf69" /><text x="938" y="699" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="18">MQ queue depth</text>
+</svg>

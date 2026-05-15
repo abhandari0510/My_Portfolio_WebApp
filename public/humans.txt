@@ -1,0 +1,26 @@
+    ___    ____
+   /   |  / __ )
+  / /| | / __  |
+ / ___ |/ /_/ /
+/_/  |_/_____/
+
+Akash Bhandari
+Grafana Technical Specialist
+
+Mumbai, Maharashtra
+abhandari0510@gmail.com
+linkedin.com/in/akash-bhandari-80059a317
+github.com/abhandari0510
+
+Technology:
+React
+Remix
+Framer Motion
+Three.js
+Grafana-inspired observability UI
+
+Focus:
+Grafana Cloud and OSS
+OpenTelemetry, Alloy, Faro, Beyla
+Loki, Tempo, Prometheus, Pyroscope
+AWS DevOps, Terraform, Kubernetes, CI/CD

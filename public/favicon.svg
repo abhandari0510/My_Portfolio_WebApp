@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <style>
+    #favicon {
+      fill: #111;
+      @media (prefers-color-scheme: dark) {
+        fill: #fff;
+      }
+    }
+  </style>
+  <path id="favicon" fill-rule="evenodd" clip-rule="evenodd" d="M32 8 54 56h-9.62l-4.28-9.83H23.9L19.62 56H10L32 8Zm-4.75 30.29h9.5L32 27.09l-4.75 11.2Z"/>
+</svg>

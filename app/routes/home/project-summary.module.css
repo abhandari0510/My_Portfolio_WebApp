@@ -1,0 +1,303 @@
+.summary {
+  min-height: 100vh;
+  width: 100%;
+  padding: var(--space4XL) 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (--mediaTablet) {
+    min-height: auto;
+    padding: var(--space3XL) 0;
+  }
+
+  &[data-first='true'] {
+    padding-top: var(--space2XL);
+  }
+}
+
+.content {
+  --textColumnWidth: 38%;
+
+  width: 100%;
+  max-width: var(--maxWidthL);
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: var(--textColumnWidth) 1fr;
+  grid-column-gap: var(--space4XL);
+
+  .summary[data-alternate='true'] & {
+    grid-template-columns: 1fr var(--textColumnWidth);
+  }
+
+  @media (--mediaLaptop) {
+    grid-column-gap: var(--space2XL);
+  }
+
+  @media (--mediaTablet) {
+    .summary[data-alternate='true'] & {
+      grid-template-columns: 100%;
+    }
+
+    grid-template-columns: 100%;
+    gap: var(--space2XL);
+  }
+}
+
+.details {
+  z-index: var(--zIndex1);
+  position: relative;
+
+  @media (--mediaTablet) {
+    max-width: 560px;
+    grid-row: 2;
+    grid-column: 1;
+    justify-self: center;
+  }
+}
+
+.preview {
+  position: relative;
+  display: grid;
+  align-items: center;
+  justify-self: center;
+  justify-content: center;
+  min-height: 560px;
+  width: 100%;
+  opacity: 0;
+  transform: translate3d(0, var(--spaceXL), 0) scale(0.98);
+  transition: opacity var(--durationXL) ease var(--durationL),
+    transform var(--durationXL) var(--bezierFastoutSlowin) var(--durationL);
+
+  &[data-visible='true'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  &::before {
+    content: '';
+    width: min(92%, 660px);
+    aspect-ratio: 1;
+    position: absolute;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, color-mix(in lab, var(--accent) 18%, transparent), transparent 56%),
+      conic-gradient(from 130deg, transparent, color-mix(in lab, var(--accent) 32%, transparent), transparent 58%);
+    filter: blur(2px);
+  }
+
+  @media (--mediaTablet) {
+    min-height: 480px;
+  }
+
+  @media (--mediaMobile) {
+    min-height: 420px;
+  }
+}
+
+.deviceModel {
+  position: relative;
+  width: 760px;
+  max-width: 100%;
+  height: 520px;
+  z-index: var(--zIndex1);
+
+  .preview[data-device='phone'] & {
+    width: 420px;
+    height: 540px;
+  }
+
+  @media (--mediaMobile) {
+    width: 86vw;
+    height: 420px;
+
+    .preview[data-device='phone'] & {
+      width: 78vw;
+      height: 480px;
+    }
+  }
+}
+
+.katakana {
+  position: absolute;
+  right: -4%;
+  bottom: 7%;
+  width: min(74%, 620px);
+  fill: color-mix(in lab, var(--textTitle) 82%, transparent);
+  opacity: 0.16;
+  transform: rotate(-4deg);
+  z-index: 0;
+  pointer-events: none;
+
+  .preview[data-device='phone'] & {
+    right: auto;
+    left: 50%;
+    bottom: 4%;
+    width: min(90%, 520px);
+    transform: translateX(-50%) rotate(-6deg);
+  }
+
+  @media (--mediaMobile) {
+    width: 92%;
+    right: 0;
+    bottom: 10%;
+  }
+}
+
+.visualCaption {
+  position: absolute;
+  left: 6%;
+  bottom: 12%;
+  display: grid;
+  gap: 4px;
+  padding: var(--spaceM);
+  min-width: 220px;
+  border-left: 2px solid var(--accent);
+  background: color-mix(in lab, var(--background) 70%, transparent);
+  backdrop-filter: blur(18px);
+  z-index: var(--zIndex2);
+
+  span {
+    color: var(--textLight);
+    font-size: var(--fontSizeBodyXS);
+    text-transform: uppercase;
+  }
+
+  strong {
+    color: var(--textTitle);
+    font-size: var(--fontSizeBodyS);
+    line-height: var(--lineHeightBody);
+  }
+
+  .preview[data-device='phone'] & {
+    left: auto;
+    right: 7%;
+    bottom: 10%;
+  }
+
+  @media (--mediaMobile) {
+    left: var(--spaceM);
+    right: var(--spaceM);
+    bottom: 5%;
+  }
+}
+
+.stack {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 9%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceS);
+  z-index: var(--zIndex2);
+
+  span {
+    border: 1px solid color-mix(in lab, var(--accent) 28%, transparent);
+    color: var(--primary);
+    padding: 6px 10px;
+    font-size: var(--fontSizeBodyXS);
+    background: color-mix(in lab, var(--accent) 8%, transparent);
+  }
+
+  .preview[data-device='phone'] & {
+    top: 6%;
+    justify-content: center;
+  }
+
+  @media (--mediaMobile) {
+    top: 0;
+    left: var(--spaceM);
+    right: var(--spaceM);
+    justify-content: center;
+  }
+}
+
+.index {
+  position: relative;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: var(--spaceM);
+  align-items: center;
+  margin-bottom: var(--spaceXL);
+}
+
+.indexNumber {
+  font-size: var(--fontSizeBodyS);
+  font-weight: var(--fontWeightMedium);
+  color: var(--primary);
+  opacity: 0;
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationM);
+  transition-delay: 1.3s;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translateX(calc(var(--spaceM) * -1));
+  }
+
+  &[data-visible='true'] {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.title {
+  margin-bottom: var(--spaceL);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--durationM);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
+  }
+
+  &[data-visible='true'] {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.description {
+  margin-bottom: var(--spaceXL);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--durationL);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
+  }
+
+  &[data-visible='true'] {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.button {
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--durationXL);
+  transform: translate3d(0, var(--spaceL), 0);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
+  }
+
+  &[data-visible='true'] {
+    transform: none;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="374" height="512" viewBox="0 0 374 512">
+  <defs>
+    <linearGradient id="alert" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#ff7a1a" />
+      <stop offset="1" stop-color="#f7c600" />
+    </linearGradient>
+  </defs>
+  <rect width="374" height="512" fill="#0b0f17" />
+  <rect x="20" y="24" width="334" height="54" rx="16" fill="#11151f" stroke="#293241" />
+  <circle cx="48" cy="51" r="10" fill="url(#alert)" />
+  <text x="68" y="58" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="18" font-weight="700">Grafana Alerting</text>
+  <rect x="20" y="104" width="334" height="132" rx="18" fill="#251612" stroke="#f46800" />
+  <text x="44" y="138" fill="#ffb357" font-family="Arial, sans-serif" font-size="14" font-weight="700">FIRING</text>
+  <text x="44" y="172" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="24" font-weight="700">API latency high</text>
+  <text x="44" y="204" fill="#d7dde8" font-family="Arial, sans-serif" font-size="15">checkout-service p95 is above</text>
+  <text x="44" y="224" fill="#d7dde8" font-family="Arial, sans-serif" font-size="15">the 200ms target for 8m.</text>
+  <rect x="20" y="260" width="334" height="74" rx="16" fill="#11151f" stroke="#293241" />
+  <text x="44" y="292" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="14">Current p95</text>
+  <text x="44" y="318" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="24" font-weight="700">312ms</text>
+  <text x="236" y="292" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="14">SLO</text>
+  <text x="236" y="318" fill="#73bf69" font-family="Arial, sans-serif" font-size="24" font-weight="700">99.9%</text>
+  <rect x="20" y="356" width="334" height="102" rx="16" fill="#11151f" stroke="#293241" />
+  <text x="44" y="390" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="18" font-weight="700">Suggested runbook</text>
+  <text x="44" y="422" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="14">1. Check recent deploy markers</text>
+  <text x="44" y="446" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="14">2. Compare Tempo slow traces</text>
+  <text x="44" y="470" fill="#8ea0b8" font-family="Arial, sans-serif" font-size="14">3. Notify #incident-ops</text>
+</svg>
