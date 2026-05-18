@@ -1,3 +1,2 @@
-kv_namespaces = [
-  { id = "MY_KV", binding="MY_KV" }
-]
+name = "portfolio"
+compatibility_date = "2026-05-18"
