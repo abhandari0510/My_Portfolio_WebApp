@@ -1,10 +1,10 @@
-import { createCookieSessionStorage } from '@remix-run/cloudflare';
+import { createCookieSessionStorage } from '@remix-run/node';
 
-export function getThemeSessionStorage({ context, request }) {
-  const sessionSecret = context.cloudflare?.env?.SESSION_SECRET;
+export function getThemeSessionStorage({ request }) {
+  const sessionSecret = process.env.SESSION_SECRET;
 
   if (!sessionSecret) {
-    throw new Error('SESSION_SECRET must be set in Cloudflare Pages environment variables.');
+    throw new Error('SESSION_SECRET must be set in Netlify environment variables.');
   }
 
   return createCookieSessionStorage({

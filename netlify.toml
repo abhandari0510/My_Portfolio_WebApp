@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "build/client"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[dev]
+  command = "npm run dev"
+  targetPort = 7777
+  port = 8888
+  publish = "build/client"

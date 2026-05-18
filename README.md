@@ -6,14 +6,14 @@
 
 [![Site preview](/public/site-preview.png)](https://akashbhandari.dev)
 
-Personal portfolio for Akash Bhandari, focused on Grafana observability, AWS DevOps, telemetry, and automation work. Built with [Remix](https://remix.run/), [Cloudflare Pages](https://developers.cloudflare.com/pages/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/).
+Personal portfolio for Akash Bhandari, focused on Grafana observability, AWS DevOps, telemetry, and automation work. Built with [Remix](https://remix.run/), [Netlify](https://www.netlify.com/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/).
 
 ## Tech Stack
 
 - Remix 2
 - React 18
 - Vite
-- Cloudflare Pages Functions
+- Netlify Functions
 - Three.js
 - Framer Motion
 - Storybook
@@ -25,8 +25,7 @@ Install these before running the project:
 
 - Node.js `20` or newer
 - npm `9.6.3` or newer
-- A Cloudflare account for deployment
-- Wrangler CLI, installed through the project dependencies
+- A Netlify account for deployment
 
 Check your versions:
 
@@ -46,26 +45,38 @@ npm install
 Create a local environment file:
 
 ```bash
-cp .dev.vars.example .dev.vars
+cp .env.example .env
 ```
 
-Update `.dev.vars` with a real random secret:
+Update `.env` with a real random secret:
 
 ```bash
 ENVIRONMENT=development
 SESSION_SECRET=replace-this-with-a-long-random-secret
 ```
 
-Start the development server:
+Start the Remix development server:
 
 ```bash
 npm run dev
 ```
 
-The Vite development server runs on:
+The Remix development server runs on:
 
 ```text
 http://localhost:7777
+```
+
+To run through Netlify's local proxy instead:
+
+```bash
+npm run start
+```
+
+Netlify serves the app at:
+
+```text
+http://localhost:8888
 ```
 
 ## Available Scripts
@@ -80,19 +91,19 @@ Starts the local Remix/Vite development server.
 npm run build
 ```
 
-Creates a production build in `build/client` and `build/server`.
+Creates a production build for Netlify.
 
 ```bash
 npm run start
 ```
 
-Serves the built app locally with Cloudflare Pages emulation. Run `npm run build` first.
+Runs `netlify serve`, which serves the app locally using Netlify's routing and function behavior.
 
 ```bash
 npm run deploy
 ```
 
-Builds the app and deploys `build/client` to Cloudflare Pages using the `portfolio` project name.
+Builds and deploys the production site to Netlify.
 
 ```bash
 npm run dev:storybook
@@ -110,7 +121,7 @@ Builds Storybook into `storybook-static`.
 npm run deploy:storybook
 ```
 
-Deploys Storybook to the `portfolio-storybook` Cloudflare Pages project.
+Builds and deploys Storybook to the currently linked Netlify site.
 
 ## Production Build Check
 
@@ -120,20 +131,13 @@ Before deploying, verify that the app builds successfully:
 npm run build
 ```
 
-The expected output folders are:
+The expected public output folder is:
 
 ```text
 build/client
-build/server
 ```
 
-This app uses Cloudflare Pages Functions through:
-
-```text
-functions/[[path]].js
-```
-
-That function loads the Remix server build from `build/server`.
+The Netlify Remix adapter also prepares the server function output that Netlify needs during deployment.
 
 ## Environment Variables
 
@@ -143,71 +147,53 @@ The app currently needs this variable:
 | --- | --- | --- |
 | `SESSION_SECRET` | Yes | Signing the session cookie used to save the selected theme |
 
-For local development, add it to `.dev.vars`.
+For local development, add it to `.env`.
 
-For Cloudflare Pages, add it in:
+For Netlify, add it in:
 
 ```text
-Cloudflare Dashboard -> Workers & Pages -> portfolio -> Settings -> Environment variables
+Netlify Dashboard -> Site configuration -> Environment variables
 ```
 
 Use a long random string. Do not commit real secrets to Git.
 
-## Cloudflare Pages Deployment
+## Netlify Deployment
 
-This app can be deployed on the Cloudflare Pages free plan.
+This app can be deployed on Netlify's free plan.
 
-Current build output is small enough for the free tier limits:
-
-- Far below the `20,000` file limit
-- No asset is near the `25 MiB` single-file limit
-- Cloudflare Pages Functions are supported
-
-### Option 1: Deploy From Local Machine
-
-Log in to Cloudflare:
-
-```bash
-npx wrangler login
-```
-
-Deploy:
-
-```bash
-npm run deploy
-```
-
-This creates or updates the Cloudflare Pages project named:
+The important Netlify settings are already captured in:
 
 ```text
-portfolio
+netlify.toml
 ```
 
-The site will be available at a Cloudflare Pages URL similar to:
-
-```text
-https://portfolio.pages.dev
-```
-
-### Option 2: Deploy With GitHub Integration
-
-Use this option if you want Cloudflare to deploy automatically after every push.
-
-In the Cloudflare dashboard:
-
-1. Go to `Workers & Pages`.
-2. Select `Create application`.
-3. Choose `Pages`.
-4. Connect the GitHub repository.
-5. Select this repository.
-6. Use these build settings:
+Current values:
 
 | Setting | Value |
 | --- | --- |
-| Framework preset | Remix, or None if configuring manually |
 | Build command | `npm run build` |
-| Build output directory | `build/client` |
-| Root directory | `/` |
+| Publish directory | `build/client` |
+| Node version | `20` |
+| Local Netlify port | `8888` |
+| Local Remix target port | `7777` |
+
+### Option 1: Deploy With GitHub Integration
+
+Use this option if you want Netlify to deploy automatically after every push.
+
+In the Netlify dashboard:
+
+1. Select `Add new site`.
+2. Choose `Import an existing project`.
+3. Connect GitHub.
+4. Select this repository.
+5. Confirm these build settings:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run build` |
+| Publish directory | `build/client` |
+| Base directory | Leave blank |
 | Production branch | `main` |
 
 Then add the production environment variable:
@@ -216,48 +202,49 @@ Then add the production environment variable:
 SESSION_SECRET=<long-random-secret>
 ```
 
-Cloudflare will read the Node version from `.node-version`. If you prefer to set it in the dashboard, add:
+Netlify will read the Node version from `netlify.toml`. Each push to `main` creates a production deployment, and pull requests can create preview deployments.
 
-```text
-NODE_VERSION=20
+### Option 2: Deploy From Local Machine
+
+Log in to Netlify:
+
+```bash
+npx netlify login
 ```
 
-Every push to the production branch will create a production deployment. Other branches can create preview deployments.
+Link this repo to a Netlify site:
 
-## Cloudflare Configuration
-
-Cloudflare Pages deployment settings are captured in:
-
-```text
-wrangler.toml
+```bash
+npx netlify init
 ```
 
-Current values:
+Deploy to production:
 
-| Setting | Value |
-| --- | --- |
-| Project name | `portfolio` |
-| Compatibility date | `2026-05-18` |
+```bash
+npm run deploy
+```
 
-The app does not require Cloudflare KV, D1, R2, or paid Workers features.
+The first deploy will give you a Netlify URL similar to:
 
-The Pages build output directory remains `build/client`. It is configured in the Cloudflare dashboard for Git deployments and in the `npm run deploy` command for local deployments.
+```text
+https://your-site-name.netlify.app
+```
 
 ## Custom Domain
 
-After the first successful Pages deployment:
+After the first successful Netlify deployment:
 
-1. Open the `portfolio` Pages project in Cloudflare.
-2. Go to `Custom domains`.
+1. Open the site in Netlify.
+2. Go to `Domain management`.
 3. Add:
 
 ```text
 akashbhandari.dev
 ```
 
-4. Follow Cloudflare's DNS instructions.
+4. Follow Netlify's DNS instructions.
 
-If the domain is already managed by Cloudflare DNS, Cloudflare can usually configure the required records automatically.
+If your DNS is managed somewhere else, add the records Netlify provides. If you move DNS to Netlify, update your domain's nameservers at the registrar.
 
 ## Contact Form
 
@@ -273,7 +260,7 @@ Current recipient:
 abhandari0510@gmail.com
 ```
 
-FormSubmit does not require Cloudflare credentials. After the first real form submission, FormSubmit sends an activation email to the recipient inbox. Confirm that email once, then future submissions should be delivered normally.
+FormSubmit does not require Netlify credentials. After the first real form submission, FormSubmit sends an activation email to the recipient inbox. Confirm that email once, then future submissions should be delivered normally.
 
 ## Site Configuration
 
@@ -326,37 +313,46 @@ Build Storybook:
 npm run build:storybook
 ```
 
-Deploy Storybook to Cloudflare Pages:
+Deploy Storybook to the currently linked Netlify site:
 
 ```bash
 npm run deploy:storybook
 ```
 
+If you want Storybook as a separate Netlify site, run `npx netlify init` from the repo and choose or create a separate site before deploying Storybook.
+
 ## Troubleshooting
 
-### Build fails because Wrangler cannot connect locally
+### Netlify Uses the Wrong Node Version
 
-In restricted environments, Wrangler or the Remix Cloudflare proxy may fail while trying to open a local connection. Try running the build in a normal terminal outside restricted sandboxing:
+Confirm `netlify.toml` contains:
+
+```toml
+[build.environment]
+  NODE_VERSION = "20"
+```
+
+You can also set `NODE_VERSION=20` in Netlify environment variables.
+
+### Theme Preference Does Not Persist
+
+Confirm `SESSION_SECRET` is set in Netlify environment variables for production and in `.env` for local development.
+
+### Local Netlify Server Cannot Find the Site
+
+Run:
 
 ```bash
-npm run build
+npx netlify init
 ```
 
-### Cloudflare Pages uses the wrong Node version
+Choose the existing Netlify site or create a new one, then run:
 
-Confirm `.node-version` is committed with:
-
-```text
-20
+```bash
+npm run start
 ```
 
-You can also set `NODE_VERSION=20` in Cloudflare Pages environment variables.
-
-### Theme preference does not persist
-
-Confirm `SESSION_SECRET` is set in Cloudflare Pages environment variables for production and in `.dev.vars` for local development.
-
-### Contact form messages do not arrive
+### Contact Form Messages Do Not Arrive
 
 Submit the form once in production and check the recipient inbox for the FormSubmit activation email. The form will not deliver normally until that activation is confirmed.
 
