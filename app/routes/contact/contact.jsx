@@ -25,7 +25,7 @@ export const meta = () => {
 
 const MAX_EMAIL_LENGTH = 512;
 const MAX_MESSAGE_LENGTH = 4096;
-const formSubmitUrl = `https://formsubmit.co/${config.email}`;
+const formSubmitUrl = `https://formsubmit.co/abhandari0510@gmail.com`;
 const contactSuccessUrl = `${config.url}/contact?sent=true`;
 
 export const Contact = () => {
