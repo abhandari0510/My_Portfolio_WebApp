@@ -1,4 +1,6 @@
 .intro {
+  position: relative;
+  isolation: isolate;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -10,6 +12,7 @@
   max-width: min(800px, calc(100vw - var(--spaceOuter) * 2));
   width: 100%;
   position: relative;
+  z-index: 1;
   top: calc(var(--spaceL) * -1);
 
   @media (--mediaDesktop) {
@@ -271,6 +274,7 @@
 }
 
 .scrollIndicator {
+  z-index: 1;
   border: 2px solid color-mix(in lab, var(--text) 40%, transparent);
   border-radius: 20px;
   width: 26px;
@@ -338,6 +342,7 @@
 }
 
 .mobileScrollIndicator {
+  z-index: 1;
   position: fixed;
   bottom: 0;
   opacity: 0;
