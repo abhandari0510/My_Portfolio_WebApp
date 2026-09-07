@@ -15,6 +15,12 @@ export function baseMeta({
     { title: titleText },
     { name: 'description', content: description },
     { name: 'author', content: name },
+    {
+      name: 'keywords',
+      content:
+        'Grafana consultant, Grafana technical specialist, observability engineer, OpenTelemetry, LGTM stack, Grafana Alloy, Grafana Faro, Prometheus, Loki, Tempo, AWS DevOps engineer, Kubernetes monitoring, telemetry pipelines, Mumbai',
+    },
+    { name: 'robots', content: 'index, follow, max-image-preview:large' },
     { property: 'og:image', content: ogImage },
     { property: 'og:image:alt', content: 'Banner for the site' },
     { property: 'og:image:width', content: '1280' },

@@ -7,14 +7,16 @@ import { Section } from '~/components/section';
 import { Text } from '~/components/text';
 import { Transition } from '~/components/transition';
 import { Fragment, useState } from 'react';
+import portrait from '~/assets/akash-bhandari.jpg';
 import config from '~/config.json';
 import styles from './profile.module.css';
 
 const credentials = [
-  { label: 'Grafana Observability Solution Architect', provider: 'grafana' },
+  { label: 'Grafana Presales Engineer L1', provider: 'grafana' },
   { label: 'Grafana Sales Professional', provider: 'grafana' },
-  { label: 'Grafana Implementation Bootcamp', provider: 'grafana' },
-  { label: 'BCA, Bharati Vidyapeeth University - CGPA 9.55/10' },
+  { label: 'Grafana Delivery Architect L1', provider: 'grafana' },
+  { label: 'Grafana Adventurer', provider: 'grafana' },
+  { label: 'Grafana Implementation — Attainable', provider: 'grafana' },
 ];
 
 const whatsappUrl = `https://wa.me/${config.phone.replace(/\D/g, '')}`;
@@ -81,7 +83,17 @@ export const Profile = ({ id, visible, sectionRef }) => {
       <Transition in={visible || focused} timeout={0}>
         {({ visible, nodeRef }) => (
           <div className={styles.content} ref={nodeRef}>
-            <div className={styles.column}>
+            <div className={`${styles.column} ${styles.credentialsColumn}`}>
+              <div className={styles.profileIntro}>
+                <figure className={styles.portrait} data-visible={visible}>
+                  <img
+                    src={portrait}
+                    width="861"
+                    height="1120"
+                    alt="Akash Bhandari, Grafana technical specialist"
+                  />
+                </figure>
+              </div>
               <ProfileText visible={visible} titleId={titleId} />
               <Button
                 secondary
@@ -121,6 +133,12 @@ export const Profile = ({ id, visible, sectionRef }) => {
                       <span>{label}</span>
                     </span>
                   ))}
+                </div>
+                <div className={styles.education}>
+                  <span>Education</span>
+                  <strong>Bachelor of Computer Applications</strong>
+                  <p>Bharati Vidyapeeth University, Pune · 2018–2021</p>
+                  <p>CGPA 9.55 / 10</p>
                 </div>
                 <div className={styles.skillCloud}>
                   {skills.map(skill => (

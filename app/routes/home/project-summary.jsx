@@ -1,4 +1,3 @@
-import grafanaAlertTexture from '~/assets/grafana-alert.svg';
 import grafanaDashboardTexture from '~/assets/grafana-dashboard.svg';
 import jenkinsPipelineTexture from '~/assets/jenkins-pipeline.svg';
 import { Button } from '~/components/button';
@@ -68,13 +67,8 @@ export function ProjectSummary({
   function renderPreview(visible) {
     const isPhone = visual.device === 'phone';
     const isPipeline = visual.device === 'pipeline';
-    const model = isPhone ? deviceModels.phone : deviceModels.laptop;
-    const texture = isPhone
-      ? {
-          srcSet: `${grafanaAlertTexture} 374w`,
-          placeholder: grafanaAlertTexture,
-        }
-      : isPipeline
+    const model = deviceModels.laptop;
+    const texture = isPipeline
         ? {
             srcSet: `${jenkinsPipelineTexture} 1280w`,
             placeholder: jenkinsPipelineTexture,
@@ -93,26 +87,22 @@ export function ProjectSummary({
         <svg className={styles.katakana} aria-hidden viewBox="0 0 751 136">
           <use href={`${katakana}#katakana-project`} />
         </svg>
-        <Model
-          className={styles.deviceModel}
-          cameraPosition={isPhone ? { x: 0, y: 0, z: 11.5 } : { x: 0, y: 0, z: 8 }}
-          show={visible}
-          showDelay={300}
-          alt={
-            isPhone
-              ? 'Phone showing a Grafana alert'
-              : isPipeline
+        {isPhone ? (
+          <PhoneDashboard />
+        ) : (
+          <Model
+            className={styles.deviceModel}
+            cameraPosition={{ x: 0, y: 0, z: 8 }}
+            show={visible}
+            showDelay={300}
+            alt={
+              isPipeline
                 ? 'Laptop showing a Jenkins CI/CD pipeline'
                 : 'Laptop showing a Grafana dashboard'
-          }
-          models={[
-            {
-              ...model,
-              position: isPhone ? { x: 0, y: 0, z: 0 } : { x: 0, y: 0, z: 0 },
-              texture,
-            },
-          ]}
-        />
+            }
+            models={[{ ...model, position: { x: 0, y: 0, z: 0 }, texture }]}
+          />
+        )}
         <div className={styles.visualCaption}>
           <span>{visual.eyebrow}</span>
           <strong>{visual.metric}</strong>
@@ -162,5 +152,51 @@ export function ProjectSummary({
         </Transition>
       </div>
     </Section>
+  );
+}
+
+function PhoneDashboard() {
+  const [tilt, setTilt] = useState({ x: 2, y: -9 });
+
+  const handlePointerMove = event => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 18;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -14;
+    setTilt({ x: y, y: x });
+  };
+
+  return (
+    <div
+      className={styles.phoneDashboard}
+      aria-label="Interactive Grafana mobile incident dashboard"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => setTilt({ x: 2, y: -9 })}
+      style={{ '--phone-rotate-x': `${tilt.x}deg`, '--phone-rotate-y': `${tilt.y}deg` }}
+    >
+      <div className={styles.phoneSpeaker} aria-hidden />
+      <div className={styles.phoneScreen}>
+        <div className={styles.phoneTopline}>
+          <span className={styles.phoneMark} aria-hidden />
+          <span>Grafana OnCall</span>
+          <span className={styles.phoneLive}>Live</span>
+        </div>
+        <div className={styles.phoneAlert}>
+          <span>Investigating</span>
+          <strong>Checkout API latency</strong>
+          <small>P95 above 450 ms for 8 min</small>
+        </div>
+        <div className={styles.phoneMetrics}>
+          <div><small>P95 latency</small><strong>482<span>ms</span></strong></div>
+          <div><small>Success rate</small><strong>99.94<span>%</span></strong></div>
+        </div>
+        <div className={styles.phoneChart} aria-hidden>
+          <span /><span /><span /><span /><span /><span /><span /><span />
+        </div>
+        <div className={styles.phoneFooter}>
+          <span>Tempo trace linked</span>
+          <strong>View incident →</strong>
+        </div>
+      </div>
+    </div>
   );
 }

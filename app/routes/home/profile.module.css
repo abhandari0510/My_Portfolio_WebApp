@@ -34,6 +34,58 @@
   transform: translate3d(0, 0, 0);
 }
 
+.credentialsColumn {
+  justify-content: flex-end;
+
+  @media (--mediaTablet) {
+    justify-content: flex-start;
+  }
+}
+
+.portrait {
+  width: 124px;
+  height: 124px;
+  align-self: start;
+  margin: 0;
+  overflow: hidden;
+  flex: 0 0 auto;
+  background: #101416;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate3d(0, var(--spaceL), 0);
+  transition: opacity var(--durationXL) ease, transform var(--durationXL) var(--bezierFastoutSlowin);
+
+  &[data-visible='true'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 17%;
+    border: 2px solid color-mix(in lab, var(--accent) 48%, transparent);
+    border-radius: inherit;
+    box-shadow: 8px 8px 0 color-mix(in lab, var(--accent) 13%, transparent),
+      0 24px 64px color-mix(in lab, var(--black) 30%, transparent);
+  }
+}
+
+.profileIntro {
+  display: flex;
+  width: 100%;
+  margin-bottom: var(--spaceL);
+
+  @media (--mediaMobile), (--mediaMobileLS) {
+    .portrait {
+      width: 96px;
+      height: 96px;
+    }
+  }
+}
+
 .title {
   margin-bottom: var(--spaceL);
   opacity: 0;
@@ -55,7 +107,7 @@
 }
 
 .tag {
-  margin-top: 150px;
+  margin-top: 0;
   margin-bottom: var(--spaceXL);
   display: grid;
   grid-template-columns: var(--space4XL) 1fr;
@@ -132,6 +184,34 @@
   padding: var(--spaceL) 0;
   border-bottom: 1px solid color-mix(in lab, var(--text) 12%, transparent);
 }
+
+.education {
+  display: grid;
+  gap: var(--spaceXS);
+  padding: var(--spaceL) 0;
+  border-bottom: 1px solid color-mix(in lab, var(--text) 12%, transparent);
+
+  > span {
+    color: var(--primary);
+    font-size: var(--fontSizeBodyXS);
+    font-weight: var(--fontWeightMedium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  strong {
+    color: var(--textTitle);
+    font-size: var(--fontSizeBodyS);
+  }
+
+  p {
+    margin: 0;
+    color: var(--textBody);
+    font-size: var(--fontSizeBodyXS);
+    line-height: 1.45;
+  }
+}
+
 
 .credential {
   display: flex;

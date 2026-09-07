@@ -1,10 +1,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://akashbhandari.dev/</loc>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://akashbhandari.dev/contact/</loc>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>

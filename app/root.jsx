@@ -50,7 +50,7 @@ export const links = () => [
 export const loader = async ({ request, context }) => {
   const { url } = request;
   const { pathname } = new URL(url);
-  const pathnameSliced = pathname.endsWith('/') ? pathname.slice(0, -1) : url;
+  const pathnameSliced = pathname === '/' ? '' : pathname.replace(/\/$/, '');
   const canonicalUrl = `${config.url}${pathnameSliced}`;
 
   const { getSession, commitSession } = getThemeSessionStorage({ request });
@@ -105,6 +105,24 @@ export default function App() {
         <Meta />
         <Links />
         <link rel="canonical" href={canonicalUrl} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: config.name,
+              jobTitle: 'Consultant – Grafana Technical Specialist',
+              description:
+                'Grafana observability specialist and AWS DevOps engineer focused on OpenTelemetry, LGTM, telemetry pipelines, dashboards, and alerting.',
+              url: config.url,
+              email: config.email,
+              address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressRegion: 'MH', addressCountry: 'IN' },
+              sameAs: [`https://www.linkedin.com/in/${config.linkedin}`, `https://github.com/${config.github}`],
+              knowsAbout: ['Grafana', 'OpenTelemetry', 'Grafana Alloy', 'Grafana Faro', 'Prometheus', 'Loki', 'Tempo', 'AWS', 'Kubernetes', 'Terraform'],
+            }),
+          }}
+        />
       </head>
       <body data-theme={theme}>
         <ThemeProvider theme={theme} toggleTheme={toggleTheme}>

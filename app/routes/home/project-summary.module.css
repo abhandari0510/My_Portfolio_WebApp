@@ -120,6 +120,108 @@
   }
 }
 
+.phoneDashboard {
+  position: relative;
+  z-index: var(--zIndex1);
+  justify-self: start;
+  margin-left: 18%;
+  width: 196px;
+  height: 374px;
+  padding: 8px;
+  border: 5px solid #1a222a;
+  border-radius: 29px;
+  background: linear-gradient(145deg, #536370, #11171d 42%, #25303b);
+  box-shadow: 12px 16px 0 color-mix(in lab, var(--accent) 18%, transparent),
+    0 25px 54px color-mix(in lab, var(--black) 42%, transparent);
+  transform: perspective(900px) rotateX(var(--phone-rotate-x, 2deg)) rotateY(var(--phone-rotate-y, -9deg));
+  transform-style: preserve-3d;
+  transition: transform 180ms ease-out;
+  will-change: transform;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 8px -12px -10px 10px;
+    z-index: -1;
+    border-radius: 29px;
+    background: linear-gradient(135deg, #11171d, #313e49);
+    box-shadow: inset -2px -2px 7px #070a0d;
+    transform: translateZ(-18px);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 40px;
+    right: -9px;
+    width: 9px;
+    height: 78px;
+    border-radius: 0 5px 5px 0;
+    background: linear-gradient(90deg, #12191f, #4d5b66);
+    transform: translateZ(-6px);
+  }
+
+  .preview:hover & {
+    transform: perspective(900px) rotateX(var(--phone-rotate-x, 2deg)) rotateY(var(--phone-rotate-y, -9deg)) translateY(-4px);
+  }
+
+  @media (--mediaMobile) {
+    justify-self: center;
+    margin-left: 0;
+    width: 164px;
+    height: 314px;
+    border-radius: 25px;
+    border-width: 4px;
+  }
+}
+
+.phoneSpeaker {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  left: 50%;
+  width: 64px;
+  height: 16px;
+  border-radius: 0 0 11px 11px;
+  background: #171b20;
+  transform: translateX(-50%);
+  translate: 0 10px;
+}
+
+.phoneScreen {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  padding: 31px 9px 9px;
+  color: #edf3f5;
+  background: radial-gradient(circle at 80% 0%, #243c45, transparent 37%), #10161d;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transform: translateZ(10px);
+
+  @media (--mediaMobile) {
+    border-radius: 16px;
+    padding: 27px 7px 7px;
+    gap: 6px;
+  }
+}
+
+.phoneTopline, .phoneMetrics, .phoneFooter { display: flex; align-items: center; }
+.phoneTopline { gap: 5px; font-size: 8px; color: #d3dce0; }
+.phoneMark { width: 6px; height: 6px; border-radius: 50%; background: #f58b2a; box-shadow: 0 0 8px #f58b2a; }
+.phoneLive { margin-left: auto; color: #74d89d; font-size: 7px; text-transform: uppercase; }
+.phoneAlert { padding: 9px; border: 1px solid #d86d35; border-radius: 8px; background: linear-gradient(135deg, #3d2521, #20191a); display: grid; gap: 4px; }
+.phoneAlert span { color: #ff9d63; font-size: 7px; text-transform: uppercase; }
+.phoneAlert strong { font-size: 11px; line-height: 1.15; }
+.phoneAlert small, .phoneMetrics small { color: #a6b2b8; font-size: 7px; }
+.phoneMetrics { gap: 8px; }
+.phoneMetrics div { flex: 1; padding: 7px; border-radius: 7px; background: #19222b; display: grid; gap: 3px; }
+.phoneMetrics strong { font-size: 12px; }.phoneMetrics strong span { font-size: 7px; color: #88d3a7; margin-left: 2px; }
+.phoneChart { flex: 1; min-height: 76px; border-radius: 8px; padding: 10px 8px; background: repeating-linear-gradient(to bottom, transparent 0 20px, #25323b 21px); display: flex; align-items: end; gap: 3px; }
+.phoneChart span { flex: 1; border-radius: 3px 3px 0 0; background: linear-gradient(#5edca1, #327b68); }.phoneChart span:nth-child(1) { height: 28%; }.phoneChart span:nth-child(2) { height: 40%; }.phoneChart span:nth-child(3) { height: 34%; }.phoneChart span:nth-child(4) { height: 66%; background: linear-gradient(#f3a269, #b5553e); }.phoneChart span:nth-child(5) { height: 52%; }.phoneChart span:nth-child(6) { height: 77%; background: linear-gradient(#f3a269, #b5553e); }.phoneChart span:nth-child(7) { height: 44%; }.phoneChart span:nth-child(8) { height: 38%; }
+.phoneFooter { padding-top: 6px; border-top: 1px solid #2b3740; justify-content: space-between; font-size: 7px; color: #a6b2b8; }.phoneFooter strong { color: #70d89b; font-size: 7px; }
+
 .katakana {
   position: absolute;
   right: -4%;
@@ -173,8 +275,8 @@
 
   .preview[data-device='phone'] & {
     left: auto;
-    right: 7%;
-    bottom: 10%;
+    right: 4%;
+    bottom: 14%;
   }
 
   @media (--mediaMobile) {
